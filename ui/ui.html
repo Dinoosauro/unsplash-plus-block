@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&amp;display=swap" rel="stylesheet">
+    <title>Unsplash+ Block</title>
+    <link rel="stylesheet" href="./ui.css">
+</head>
+
+<body>
+    <div class="flex hcenter wcenter">
+        <img width="48" src="../assets/icon.svg" style="margin-right: 10px;">
+        <h1>Unsplash+ Block</h1>
+    </div>
+    <div class="error" data-activationshowup>
+        <h2>Unsplash+ Block needs to be activated</h2>
+        <p>Please grant write authorization to Unsplash+ Block. Don't worry, everything will be processed locally on
+            device. Refresh every Unsplash tab after enabling this extension to make it work.</p>
+        <button id="enable">Enable Unsplash+ Block</button>
+    </div><br>
+    <div class="card">
+        <h2>Funcionality:</h2>
+        <div class="flex hcenter">
+            <input type="checkbox" id="enableUnsplashBlock"><label for="enableUnsplashBlock">Block Unsplash+
+                images</label>
+        </div><br>
+        <i>Unsplash+ Block will delete images fetched after being enabled.</i><br><br>
+        <h3>Unsplash+ Image Detection method:</h3>
+        <select id="detectionMethod">
+            <option value="0">Only SVG class</option>
+            <option value="1">Only "/plus" links</option>
+            <option value="default" selected>Both SVG class and "/plus" links</option>
+        </select>
+    </div><br><br>
+    <div class="card">
+        <h2>Credits:</h2>
+        <p>Icon from <a href="https://github.com/microsoft/fluentui-system-icons" target="_blank">Fluent UI System
+                Icons</a></p>
+        <a href="https://github.com/dinoosauro/unsplash-plus-block" target="_blank">View on GitHub</a>
+    </div>
+    <script src="./ui.js"></script>
+</body>
+
+</html>

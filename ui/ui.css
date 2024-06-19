@@ -1,0 +1,100 @@
+:root {
+    --font: 'Work Sans', sans-serif;
+    --background: #151515;
+    --text: #fafafa;
+    --first: #313131;
+    --error: #882626;
+    --accent: #CF9C62;
+}
+
+body {
+    padding: 10px;
+    padding-top: 0px;
+    background-color: var(--background);
+    color: var(--text);
+    min-width: 250px;
+    font-family: var(--font);
+}
+
+a {
+    color: var(--text);
+}
+
+.card,
+.error {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: var(--first);
+}
+
+.error {
+    background-color: var(--error);
+}
+
+.error h2 {
+    margin-top: 0px;
+}
+
+button,
+select {
+    background-color: var(--accent);
+    color: var(--background);
+    font-family: var(--font);
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid var(--text);
+    transition: filter 0.2s ease-in-out;
+}
+
+button:hover {
+    filter: brightness(130%);
+}
+
+button:active {
+    filter: brightness(150%);
+}
+
+input[type=checkbox] {
+    position: relative;
+    width: 60px;
+    appearance: none;
+    border-radius: 8px;
+    background-color: var(--accent);
+    height: 20px;
+    margin-right: 10px;
+}
+
+input[type=checkbox]::before {
+    content: "";
+    border-radius: 50px;
+    position: absolute;
+    top: 2px;
+    height: 16px;
+    width: 16px;
+    background-color: var(--background);
+    left: 2px;
+    transition: left 0.2s ease-in-out;
+}
+
+input[type=checkbox]:checked::before {
+    left: 42px;
+}
+
+input:hover,
+button:hover,
+select:hover {
+    cursor: pointer;
+}
+
+.flex {
+    display: flex;
+}
+
+.hcenter {
+    align-items: center;
+}
+
+.wcenter {
+    justify-content: center;
+}
