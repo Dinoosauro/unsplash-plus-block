@@ -2,7 +2,7 @@ const requestedUrl = "*://*.unsplash.com/*";
 /**
  * Checks if the "chrome" namespace is available, and use it. Otherwise, Firefox's "browser" namespace will be used.
  */
-const chromiumUsed = !!chrome;
+const chromiumUsed = typeof chrome !== "undefined";
 /**
  * Check if the user has granted permission to the extension to access the YouTube webpage, so that, if false, a warning on the extension UI will be shown.
  */
@@ -55,4 +55,5 @@ const getValueItems = new Map([["ExtractionMethod", document.getElementById("det
         domItem.addEventListener("change", () => setStorageItem(key, domItem.value));
         domItem.value = (await getStorageItem(key))[key] ?? "default";
     }
+    document.getElementById("imgBlockCount").textContent = (await getStorageItem("BlockedNumber"))["BlockedNumber"] ?? "0";
 })()
