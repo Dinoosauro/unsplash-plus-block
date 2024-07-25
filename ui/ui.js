@@ -57,3 +57,7 @@ const getValueItems = new Map([["ExtractionMethod", document.getElementById("det
     }
     document.getElementById("imgBlockCount").textContent = (await getStorageItem("BlockedNumber"))["BlockedNumber"] ?? "0";
 })()
+document.getElementById("rerunScript").onclick = async () => {
+    const ids = await (chromiumUsed ? chrome : browser).tabs.query({ active: true });
+    (chromiumUsed ? chrome : browser).tabs.sendMessage(ids[0].id, "ReRun");
+}
