@@ -73,13 +73,15 @@ let observer;
  */
 let change;
 function startScript() {
-    let getScript = [...document.getElementsByClassName("VfiJa ec_09 Niw9H _UNLg")]; // The class(es) for the grid containers.
-    if (getScript.length === 0 || !document.querySelector("[data-test='topic-route'], [data-test='photos-feed-route']") || !document.querySelector(`[data-test="client-side-hydration-complete"]`)) { // Try after 500 ms if new grids are found
+    /**
+     * The possible divs for the image containers
+     */
+    let getScript = [...(document.querySelector("[data-testid='feed-scroll-div'], [data-test='feed-scroll-div']")?.previousSibling?.childNodes ?? [])];
+    if (getScript.length === 0 || !document.querySelector("[data-test='topic-route'], [data-test='photos-feed-route'], [data-testid='topic-route'], [data-testid='photos-feed-route']") || !document.querySelector(`[data-test="client-side-hydration-complete"], [data-testid="client-side-hydration-complete"]`)) { // Try after 500 ms if new grids are found
         setTimeout(() => startScript(), 500);
         return;
     }
-    getScript[getScript.length - 1].clientHeight === 0 && getScript.push(...document.querySelectorAll(".d95fI")); // Mobile view: the container div has zero height, so there's only an image column displayed. The script gets this div, and it'll use that for the MutationObserver
-    const currentPhotoTest = document.querySelector("[data-test='topic-route'], [data-test='photos-feed-route']"); // The main div for both the "Picture" tab
+    const currentPhotoTest = document.querySelector("[data-test='topic-route'], [data-test='photos-feed-route'], [data-testid='topic-route'], [data-testid='photos-feed-route']"); // The main div for both the "Picture" tab
     const scriptToLook = currentPhotoTest.lastChild; // The single tab
     change = new MutationObserver((list) => {
         for (const mutation of list) {
@@ -93,15 +95,17 @@ function startScript() {
             }
         }
     });
-    change.observe(document.querySelector(`[data-test="client-side-hydration-complete"]`), { childList: true, subtree: true });
+    change.observe(document.querySelector(`[data-test="client-side-hydration-complete"], [data-testid="client-side-hydration-complete"]`), { childList: true, subtree: true });
     observer = new MutationObserver(async (list) => {
         for (const item of list) {
             for (const node of item.addedNodes) deleteItem(node);
         }
     })
     alert("Deleting...");
-    observer.observe(getScript[getScript.length - 1], { childList: true, subtree: true }); // The last grid is where all the images are shown. The previous ones are usually advertisement/promotion grids
-    for (const item of getScript[getScript.length - 1].querySelectorAll("figure")) deleteItem(item); // Delete all the Unsplash+ items that were already loaded
+    for (const possibleGrids of getScript) {
+        observer.observe(possibleGrids, { childList: true, subtree: true }); // The last grid is where all the images are shown. The previous ones are usually advertisement/promotion grids
+        for (const item of possibleGrids.querySelectorAll("figure")) deleteItem(item); // Delete all the Unsplash+ items that were already loaded
+    }
 }
 startScript();
 (chromiumUsed ? chrome : browser).runtime.onMessage.addListener(() => {
