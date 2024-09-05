@@ -101,7 +101,6 @@ function startScript() {
             for (const node of item.addedNodes) deleteItem(node);
         }
     })
-    alert("Deleting...");
     for (const possibleGrids of getScript) {
         observer.observe(possibleGrids, { childList: true, subtree: true }); // The last grid is where all the images are shown. The previous ones are usually advertisement/promotion grids
         for (const item of possibleGrids.querySelectorAll("figure")) deleteItem(item); // Delete all the Unsplash+ items that were already loaded
